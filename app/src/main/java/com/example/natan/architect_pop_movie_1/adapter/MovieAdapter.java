@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.example.natan.architect_pop_movie_1.R;
-import com.example.natan.architect_pop_movie_1.api.model.Result;
+import com.example.natan.architect_pop_movie_1.model.Result;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

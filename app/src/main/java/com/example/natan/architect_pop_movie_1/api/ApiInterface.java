@@ -1,6 +1,6 @@
 package com.example.natan.architect_pop_movie_1.api;
 
-import com.example.natan.architect_pop_movie_1.api.model.Movie;
+import com.example.natan.architect_pop_movie_1.model.Movie;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

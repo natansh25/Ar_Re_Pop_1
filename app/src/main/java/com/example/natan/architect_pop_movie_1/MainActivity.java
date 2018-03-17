@@ -5,12 +5,14 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.example.natan.architect_pop_movie_1.adapter.MovieAdapter;
 import com.example.natan.architect_pop_movie_1.api.ApiClient;
 import com.example.natan.architect_pop_movie_1.api.ApiInterface;
-import com.example.natan.architect_pop_movie_1.api.model.Movie;
-import com.example.natan.architect_pop_movie_1.api.model.Result;
+import com.example.natan.architect_pop_movie_1.model.Movie;
+import com.example.natan.architect_pop_movie_1.model.Result;
 
 import java.util.List;
 
@@ -33,6 +35,29 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
         //------------calling Retrofit--------------------
+
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_top) {
+            loadTop();
+        } else {
+            loadHighest();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void loadHighest() {
 
         ApiInterface apiService =
                 ApiClient.getClient().create(ApiInterface.class);
@@ -58,4 +83,30 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+    private void loadTop() {
+
+        ApiInterface apiService =
+                ApiClient.getClient().create(ApiInterface.class);
+
+        Call<Movie> call = apiService.getTopRatedMovies(ApiClient.api_key);
+        call.enqueue(new Callback<Movie>() {
+            @Override
+            public void onResponse(Call<Movie> call, Response<Movie> response) {
+                int statusCode = response.code();
+                List<Result> results = response.body().getResults();
+                mMovieAdapter = new MovieAdapter(results);
+                mRecyclerView.setAdapter(mMovieAdapter);
+                mMovieAdapter.notifyDataSetChanged();
+
+
+            }
+
+            @Override
+            public void onFailure(Call<Movie> call, Throwable t) {
+
+            }
+        });
+    }
+
 }

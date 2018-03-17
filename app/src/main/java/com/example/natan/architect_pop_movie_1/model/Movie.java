@@ -1,5 +1,5 @@
 
-package com.example.natan.architect_pop_movie_1.api.model;
+package com.example.natan.architect_pop_movie_1.model;
 
 import java.util.List;
 import com.google.gson.annotations.Expose;
