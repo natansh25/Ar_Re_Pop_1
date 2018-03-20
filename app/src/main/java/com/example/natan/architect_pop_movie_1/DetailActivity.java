@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.natan.architect_pop_movie_1.model.Result;
+import com.example.natan.architect_pop_movie_1.viewModel.MovieViewModel;
 import com.squareup.picasso.Picasso;
 
 public class DetailActivity extends AppCompatActivity {
@@ -14,6 +15,9 @@ public class DetailActivity extends AppCompatActivity {
     private TextView txt_Rating;
     private TextView txt_Release;
     private ImageView img_Poster;
+
+    private MovieViewModel mMovieViewModel;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +33,8 @@ public class DetailActivity extends AppCompatActivity {
 
 
         Result result = getIntent().getParcelableExtra("data");
+        mMovieViewModel.insert(result);
+
 
         txt_Title.setText(result.getTitle());
         txt_Plot.setText(result.getOverview());

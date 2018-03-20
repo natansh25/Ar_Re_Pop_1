@@ -41,4 +41,14 @@ dependencies {
 
     implementation 'com.android.support:cardview-v7:26.1.0'
     compile 'com.github.jd-alexander:LikeButton:0.2.3'
+
+    implementation "android.arch.persistence.room:runtime:$rootProject.roomVersion"
+    annotationProcessor "android.arch.persistence.room:compiler:$rootProject.roomVersion"
+    androidTestImplementation "android.arch.persistence.room:testing:$rootProject.roomVersion"
+
+    implementation "android.arch.lifecycle:extensions:$rootProject.archLifecycleVersion"
+    annotationProcessor "android.arch.lifecycle:compiler:$rootProject.archLifecycleVersion"
+
+
+    compile 'com.facebook.stetho:stetho:1.5.0'
 }

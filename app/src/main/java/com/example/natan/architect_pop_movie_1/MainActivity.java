@@ -15,6 +15,7 @@ import com.example.natan.architect_pop_movie_1.api.ApiClient;
 import com.example.natan.architect_pop_movie_1.api.ApiInterface;
 import com.example.natan.architect_pop_movie_1.model.Movie;
 import com.example.natan.architect_pop_movie_1.model.Result;
+import com.facebook.stetho.Stetho;
 
 import java.util.List;
 
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(MainActivity.this, 2);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        Stetho.initializeWithDefaults(this);
 
         loadTop();
 

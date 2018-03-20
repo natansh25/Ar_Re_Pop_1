@@ -1,6 +1,10 @@
 
 package com.example.natan.architect_pop_movie_1.model;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -10,47 +14,82 @@ import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+@Entity(tableName = "movie_table")
 public class Result implements Parcelable {
 
+    @ColumnInfo(name = "id")
+    @PrimaryKey(autoGenerate = true)
+    private int mID;
+
+    @ColumnInfo(name = "vote_count")
     @SerializedName("vote_count")
     @Expose
     private Integer voteCount;
+
+    @ColumnInfo(name = "movie_id")
     @SerializedName("id")
     @Expose
     private Integer id;
+
+
+    @ColumnInfo(name = "video")
     @SerializedName("video")
     @Expose
     private Boolean video;
+
+    @ColumnInfo(name = "vote_average")
     @SerializedName("vote_average")
     @Expose
     private Double voteAverage;
+
+    @ColumnInfo(name = "title")
     @SerializedName("title")
     @Expose
     private String title;
+
+    @ColumnInfo(name = "popularity")
+
     @SerializedName("popularity")
     @Expose
     private Double popularity;
+
+    @ColumnInfo(name = "poster")
     @SerializedName("poster_path")
     @Expose
     private String posterPath;
+
+    @ColumnInfo(name = "language")
     @SerializedName("original_language")
     @Expose
     private String originalLanguage;
+
     @SerializedName("original_title")
     @Expose
     private String originalTitle;
+
+    @Ignore
     @SerializedName("genre_ids")
     @Expose
     private List<Integer> genreIds = null;
+
+    @ColumnInfo(name = "back_poster")
     @SerializedName("backdrop_path")
     @Expose
     private String backdropPath;
+
+    @ColumnInfo(name = "adult")
+
     @SerializedName("adult")
     @Expose
     private Boolean adult;
+
+    @ColumnInfo(name = "overview")
     @SerializedName("overview")
     @Expose
     private String overview;
+
+    @ColumnInfo(name = "release_date")
+
     @SerializedName("release_date")
     @Expose
     private String releaseDate;
@@ -71,6 +110,15 @@ public class Result implements Parcelable {
         this.adult = adult;
         this.overview = overview;
         this.releaseDate = releaseDate;
+
+    }
+
+    public int getID() {
+        return mID;
+    }
+
+    public void setID(int ID) {
+        mID = ID;
     }
 
     public Integer getVoteCount() {
@@ -192,6 +240,7 @@ public class Result implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.mID);
         dest.writeValue(this.voteCount);
         dest.writeValue(this.id);
         dest.writeValue(this.video);
@@ -208,7 +257,9 @@ public class Result implements Parcelable {
         dest.writeString(this.releaseDate);
     }
 
+    @Ignore
     protected Result(Parcel in) {
+        this.mID = in.readInt();
         this.voteCount = (Integer) in.readValue(Integer.class.getClassLoader());
         this.id = (Integer) in.readValue(Integer.class.getClassLoader());
         this.video = (Boolean) in.readValue(Boolean.class.getClassLoader());
@@ -226,7 +277,7 @@ public class Result implements Parcelable {
         this.releaseDate = in.readString();
     }
 
-    public static final Parcelable.Creator<Result> CREATOR = new Parcelable.Creator<Result>() {
+    public static final Creator<Result> CREATOR = new Creator<Result>() {
         @Override
         public Result createFromParcel(Parcel source) {
             return new Result(source);
