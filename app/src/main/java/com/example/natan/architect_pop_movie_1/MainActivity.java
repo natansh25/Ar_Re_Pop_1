@@ -1,5 +1,6 @@
 package com.example.natan.architect_pop_movie_1;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -72,7 +73,9 @@ public class MainActivity extends AppCompatActivity {
                 mMovieAdapter = new MovieAdapter(results, new MovieAdapter.RecyclerViewClickListener() {
                     @Override
                     public void onClick(Result result) {
-                        Toast.makeText(MainActivity.this, String.valueOf(result.getOriginalTitle()), Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(MainActivity.this, DetailActivity.class);
+                        intent.putExtra("data", result);
+                        startActivity(intent);
                     }
                 });
                 mRecyclerView.setAdapter(mMovieAdapter);
@@ -104,8 +107,9 @@ public class MainActivity extends AppCompatActivity {
                 mMovieAdapter = new MovieAdapter(results, new MovieAdapter.RecyclerViewClickListener() {
                     @Override
                     public void onClick(Result result) {
-                        Toast.makeText(MainActivity.this, String.valueOf(result.getOriginalTitle()), Toast.LENGTH_SHORT).show();
-
+                        Intent intent = new Intent(MainActivity.this, DetailActivity.class);
+                        intent.putExtra("data", result);
+                        startActivity(intent);
                     }
                 });
                 mRecyclerView.setAdapter(mMovieAdapter);
