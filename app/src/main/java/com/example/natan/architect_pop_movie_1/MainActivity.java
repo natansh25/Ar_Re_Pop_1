@@ -7,6 +7,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.natan.architect_pop_movie_1.adapter.MovieAdapter;
 import com.example.natan.architect_pop_movie_1.api.ApiClient;
@@ -34,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        //------------calling Retrofit--------------------
+        loadTop();
 
 
     }
@@ -68,7 +69,12 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<Movie> call, Response<Movie> response) {
                 int statusCode = response.code();
                 List<Result> results = response.body().getResults();
-                mMovieAdapter = new MovieAdapter(results);
+                mMovieAdapter = new MovieAdapter(results, new MovieAdapter.RecyclerViewClickListener() {
+                    @Override
+                    public void onClick(Result result) {
+                        Toast.makeText(MainActivity.this, String.valueOf(result.getOriginalTitle()), Toast.LENGTH_SHORT).show();
+                    }
+                });
                 mRecyclerView.setAdapter(mMovieAdapter);
                 mMovieAdapter.notifyDataSetChanged();
 
@@ -95,7 +101,13 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<Movie> call, Response<Movie> response) {
                 int statusCode = response.code();
                 List<Result> results = response.body().getResults();
-                mMovieAdapter = new MovieAdapter(results);
+                mMovieAdapter = new MovieAdapter(results, new MovieAdapter.RecyclerViewClickListener() {
+                    @Override
+                    public void onClick(Result result) {
+                        Toast.makeText(MainActivity.this, String.valueOf(result.getOriginalTitle()), Toast.LENGTH_SHORT).show();
+
+                    }
+                });
                 mRecyclerView.setAdapter(mMovieAdapter);
                 mMovieAdapter.notifyDataSetChanged();
 

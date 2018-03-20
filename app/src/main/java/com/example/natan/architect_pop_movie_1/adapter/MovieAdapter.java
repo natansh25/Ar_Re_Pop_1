@@ -22,8 +22,20 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
 
     private List<Result> mResults;
 
-    public MovieAdapter(List<Result> results) {
+    private RecyclerViewClickListener mListener;
+
+    public MovieAdapter(List<Result> results, RecyclerViewClickListener clickListener) {
         mResults = results;
+        mListener = clickListener;
+    }
+
+    public interface RecyclerViewClickListener {
+
+        //if we want to on click the item index value
+        //void onClick(View view, int position);
+
+        //if we want the whole object to retrive the items
+        void onClick(Result result);
     }
 
     @Override
@@ -51,7 +63,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
         return mResults.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private ImageView img;
         private TextView txt_name;
@@ -59,7 +71,17 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
         public MyViewHolder(View itemView) {
             super(itemView);
             img = itemView.findViewById(R.id.imageView);
-            txt_name=itemView.findViewById(R.id.txt_movie_name);
+            txt_name = itemView.findViewById(R.id.txt_movie_name);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+
+            int adapterPosition = getAdapterPosition();
+            Result result = mResults.get(adapterPosition);
+            mListener.onClick(result);
+
         }
     }
 
