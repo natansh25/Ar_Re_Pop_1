@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.natan.architect_pop_movie_1.R;
 import com.example.natan.architect_pop_movie_1.model.Result;
@@ -39,6 +40,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
 
         Result result = mResults.get(position);
         Context context = holder.img.getContext();
+        holder.txt_name.setText(result.getOriginalTitle());
         Picasso.with(context).load("https://image.tmdb.org/t/p/w500" + result.getPosterPath()).into(holder.img);
 
 
@@ -52,10 +54,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView img;
+        private TextView txt_name;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             img = itemView.findViewById(R.id.imageView);
+            txt_name=itemView.findViewById(R.id.txt_movie_name);
         }
     }
 
