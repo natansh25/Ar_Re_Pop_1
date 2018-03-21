@@ -67,10 +67,10 @@ public class Result implements Parcelable {
     @Expose
     private String originalTitle;
 
-    @Ignore
+    /*@Ignore
     @SerializedName("genre_ids")
     @Expose
-    private List<Integer> genreIds = null;
+    private List<Integer> genreIds = null;*/
 
     @ColumnInfo(name = "back_poster")
     @SerializedName("backdrop_path")
@@ -95,7 +95,7 @@ public class Result implements Parcelable {
     private String releaseDate;
 
 
-    public Result(Integer voteCount, Integer id, Boolean video, Double voteAverage, String title, Double popularity, String posterPath, String originalLanguage, String originalTitle, List<Integer> genreIds, String backdropPath, Boolean adult, String overview, String releaseDate) {
+    public Result(Integer voteCount, Integer id, Boolean video, Double voteAverage, String title, Double popularity, String posterPath, String originalLanguage, String originalTitle/*, List<Integer> genreIds*/, String backdropPath, Boolean adult, String overview, String releaseDate) {
         this.voteCount = voteCount;
         this.id = id;
         this.video = video;
@@ -105,7 +105,7 @@ public class Result implements Parcelable {
         this.posterPath = posterPath;
         this.originalLanguage = originalLanguage;
         this.originalTitle = originalTitle;
-        this.genreIds = genreIds;
+        //this.genreIds = genreIds;
         this.backdropPath = backdropPath;
         this.adult = adult;
         this.overview = overview;
@@ -193,13 +193,13 @@ public class Result implements Parcelable {
         this.originalTitle = originalTitle;
     }
 
-    public List<Integer> getGenreIds() {
+    /*public List<Integer> getGenreIds() {
         return genreIds;
     }
 
     public void setGenreIds(List<Integer> genreIds) {
         this.genreIds = genreIds;
-    }
+    }*/
 
     public String getBackdropPath() {
         return backdropPath;
@@ -250,7 +250,7 @@ public class Result implements Parcelable {
         dest.writeString(this.posterPath);
         dest.writeString(this.originalLanguage);
         dest.writeString(this.originalTitle);
-        dest.writeList(this.genreIds);
+        //dest.writeList(this.genreIds);
         dest.writeString(this.backdropPath);
         dest.writeValue(this.adult);
         dest.writeString(this.overview);
@@ -269,8 +269,8 @@ public class Result implements Parcelable {
         this.posterPath = in.readString();
         this.originalLanguage = in.readString();
         this.originalTitle = in.readString();
-        this.genreIds = new ArrayList<Integer>();
-        in.readList(this.genreIds, Integer.class.getClassLoader());
+        /*this.genreIds = new ArrayList<Integer>();
+        in.readList(this.genreIds, Integer.class.getClassLoader());*/
         this.backdropPath = in.readString();
         this.adult = (Boolean) in.readValue(Boolean.class.getClassLoader());
         this.overview = in.readString();

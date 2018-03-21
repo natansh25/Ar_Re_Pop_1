@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         Stetho.initializeWithDefaults(this);
 
-        loadTop();
+        loadHighest();
 
 
     }
@@ -69,15 +69,16 @@ public class MainActivity extends AppCompatActivity {
         Call<Movie> call = apiService.getPopularMovies(ApiClient.api_key);
         call.enqueue(new Callback<Movie>() {
             @Override
-            public void onResponse(Call<Movie> call, Response<Movie> response) {
+            public void onResponse(Call<Movie> call, final Response<Movie> response) {
                 int statusCode = response.code();
                 List<Result> results = response.body().getResults();
                 mMovieAdapter = new MovieAdapter(results, new MovieAdapter.RecyclerViewClickListener() {
                     @Override
                     public void onClick(Result result) {
-                        Intent intent = new Intent(MainActivity.this, DetailActivity.class);
+                        /*Intent intent = new Intent(MainActivity.this, DetailActivity.class);
                         intent.putExtra("data", result);
-                        startActivity(intent);
+                        startActivity(intent);*/
+                        Toast.makeText(MainActivity.this, String.valueOf(result.getTitle()), Toast.LENGTH_SHORT).show();
                     }
                 });
                 mRecyclerView.setAdapter(mMovieAdapter);
@@ -112,6 +113,8 @@ public class MainActivity extends AppCompatActivity {
                         Intent intent = new Intent(MainActivity.this, DetailActivity.class);
                         intent.putExtra("data", result);
                         startActivity(intent);
+                        Toast.makeText(MainActivity.this, String.valueOf(result.getTitle()), Toast.LENGTH_SHORT).show();
+
                     }
                 });
                 mRecyclerView.setAdapter(mMovieAdapter);

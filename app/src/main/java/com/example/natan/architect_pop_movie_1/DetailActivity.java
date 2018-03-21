@@ -1,5 +1,7 @@
 package com.example.natan.architect_pop_movie_1;
 
+import android.arch.lifecycle.ViewModel;
+import android.arch.lifecycle.ViewModelProviders;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
@@ -29,10 +31,14 @@ public class DetailActivity extends AppCompatActivity {
         txt_Rating = findViewById(R.id.rating);
         txt_Release = findViewById(R.id.release);
 
+        mMovieViewModel= ViewModelProviders.of(this).get(MovieViewModel.class);
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
         Result result = getIntent().getParcelableExtra("data");
+
+
         mMovieViewModel.insert(result);
 
 
